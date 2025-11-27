@@ -158,7 +158,8 @@ NLP_PROJECT/
 │
 ├── src/                      
 │   ├── features/             
-│   │   └── feature_extraction.py   
+│   │   └── feature_extraction.py
+│   │   └── word2vec_preparation.py
 │   │
 │   └── preprocessing/        
 │       └── preprocess_and_markov.py  
