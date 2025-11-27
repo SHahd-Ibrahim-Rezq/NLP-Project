@@ -201,7 +201,50 @@ After preprocessing, the **feature extraction module** converts cleaned text int
 
 ---
 
-## **9. How to Run**
+## **9. Word2Vec Feature Extraction**
+
+This section explains how word-level features are generated using the Word2Vec Skip-Gram model to support POS and NER classification tasks.
+
+### 1. Loading the Processed Dataset
+The cleaned dataset is loaded from the `data/cleaned` directory.  
+It must contain:
+- `processed_sentence`: the preprocessed and tokenized text  
+- `label`: the POS or NER tag associated with each word  
+
+### 2. Tokenization and Label Preparation
+Each processed sentence is split into tokens.  
+Label sequences are also converted into lists to ensure perfect alignment between tokens and their corresponding tags.  
+The outcome of this step is:
+- A list of tokenized sentences  
+- A list of aligned label sequences  
+
+### 3. Training the Word2Vec Model
+A Word2Vec Skip-Gram model is trained on the entire collection of tokenized sentences.  
+The model configuration includes:
+- Vector size: 100  
+- Window size: 5  
+- Minimum word count: 1  
+- Workers: 4  
+
+The trained embedding model is saved as:  
+`data/embeddings/word2vec.model`
+
+### 4. Creating Embedding Features
+Each word in every sentence is converted into its Word2Vec embedding vector, and each vector is paired with its correct POS/NER tag.  
+This step produces two feature arrays:
+- `X`: the matrix of word embeddings  
+- `y`: the corresponding labels for each word  
+
+### 5. Saving the Final Feature Files
+The generated feature matrices are saved as:
+- `data/embeddings/X_word2vec.npy`
+- `data/embeddings/y_word2vec.npy`
+
+### These files are later used as inputs for machine-learning models such as SVM, Logistic Regression, and various neural network classifiers.
+---
+
+
+## **10. How to Run**
 
 ### Install dependencies
 
@@ -223,7 +266,7 @@ python src/features/feature_extraction.py
 
 ---
 
-## **10. FAQs & Important Notes**
+## **11. FAQs & Important Notes**
 
 * **Why this dataset?**
   High-quality, linguistically annotated dataset ideal for NLP preprocessing and modeling.
@@ -242,7 +285,7 @@ python src/features/feature_extraction.py
 
 ---
 
-## **11. Conclusion**
+## **12. Conclusion**
 
 This project demonstrates:
 
